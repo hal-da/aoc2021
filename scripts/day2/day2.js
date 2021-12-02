@@ -46,5 +46,5 @@ dataArr.forEach(data => {
 })
 
 
-console.log(positionAim)
+console.table(positionAim)
 console.log(positionAim.depth * positionAim.horizontal)
