@@ -20,12 +20,11 @@ binaries.forEach( x => {
     epsilon += !(x.length > diagnostic.length/2) ? '1' : '0'
 })
 console.log('epsilon: ', parseInt(epsilon,2), '  gamma: ' , parseInt(gamma,2))
-console.log('power consumption: ' + ( parseInt(gamma,2) * parseInt(epsilon,2)) )
-// 3549854
+console.log('power consumption: ' + (parseInt(gamma,2) * parseInt(epsilon,2)))
 
 // part 2:
 function getMostOrLeastCommon (arr, i, most){
-    let survivors = [], commonOnes = '',mostCommon = '' ;
+    let survivors = [], commonOnes = '',mostCommon = ''
     arr.forEach(x => {
         commonOnes += x[i] === '1' ? '1' : ''
     })
@@ -35,7 +34,6 @@ function getMostOrLeastCommon (arr, i, most){
        if(most && x[i] === mostCommon) survivors.push(x)
        else if (!most && x[i] !== mostCommon) survivors.push(x)
     })
-    console.log(survivors.length, ' survivors.length')
     if(survivors.length!==1) survivors = getMostOrLeastCommon(survivors,++i,most)
     return survivors
 }
