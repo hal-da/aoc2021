@@ -33,24 +33,16 @@ function getMostOrLeastCommon (arr, i, most){
 
     arr.forEach(x => {
        if(most && x[i] === mostCommon) survivors.push(x)
-        else if (!most && x[i] !== mostCommon) survivors.push(x)
+       else if (!most && x[i] !== mostCommon) survivors.push(x)
     })
+    console.log(survivors.length, ' survivors.length')
+    if(survivors.length!==1) survivors = getMostOrLeastCommon(survivors,++i,most)
     return survivors
 }
 
-let oxygen = diagnostic;
-let scrubber = diagnostic;
-let i = 0;
+let oxygen = getMostOrLeastCommon(diagnostic, 0, true )
+let scrubber = getMostOrLeastCommon(diagnostic, 0, false)
 
-while(oxygen.length !== 1){
-    oxygen = getMostOrLeastCommon(oxygen, i, true )
-    i++;
-}
-i = 0;
-while(scrubber.length !== 1){
-    scrubber = getMostOrLeastCommon(scrubber, i, false)
-    i++;
-}
 
 console.log('oxygen: ', parseInt(oxygen,2), '  scrubber: ' , parseInt(scrubber,2))
 console.log('life support rating,: ' + ( parseInt(oxygen,2) * parseInt(scrubber,2)) )
