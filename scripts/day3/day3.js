@@ -40,9 +40,8 @@ function getMostOrLeastCommon (arr, i, most){
     return survivors
 }
 
-let oxygen = getMostOrLeastCommon(diagnostic, 0, true )
-let scrubber = getMostOrLeastCommon(diagnostic, 0, false)
-
+let oxygen = getMostOrLeastCommon(diagnostic, 0, true ).toString()
+let scrubber = getMostOrLeastCommon(diagnostic, 0, false).toString()
 
 console.log('oxygen: ', parseInt(oxygen,2), '  scrubber: ' , parseInt(scrubber,2))
 console.log('life support rating,: ' + ( parseInt(oxygen,2) * parseInt(scrubber,2)) )
