@@ -6,21 +6,25 @@ let boards = data.boards.split('\n\n')
 let draws = data.draws.split(',').map(String)
 let allBoardsPlusInfo = {}
 // create boards
-for (let i = 0; i <boards.length; i++) {
-    let board = boards[i]
-        .replaceAll('\n',' ')
-        .trim().replaceAll('  ',' ')
-        .split(' ')
-        .map(String)
+function createEmptyBoards(){
+    for (let i = 0; i <boards.length; i++) {
+        let board = boards[i]
+            .replaceAll('\n',' ')
+            .trim().replaceAll('  ',' ')
+            .split(' ')
+            .map(String)
 
-    allBoardsPlusInfo[i] = {
-        board:board,
-        indices:[],
-        marked:[]
+        allBoardsPlusInfo[i] = {
+            board:board,
+            indices:[],
+            marked:[]
+        }
     }
 }
 
+
 // lets draw part 1
+createEmptyBoards()
 let winningBoard = {}
 for (let i = 0; i < draws.length; i++) {
     let draw = draws[i]
@@ -49,19 +53,7 @@ console.log(sum, ' sum')
 console.log(sum * winningBoard.winningNumber)
 
 // lets lose part 2
-for (let i = 0; i <boards.length; i++) {
-    let board = boards[i]
-        .replaceAll('\n',' ')
-        .trim().replaceAll('  ',' ')
-        .split(' ')
-        .map(String)
-
-    allBoardsPlusInfo[i] = {
-        board:board,
-        indices:[],
-        marked:[]
-    }
-}
+createEmptyBoards()
 let lastBoardToWin
 
 for(let i = 0;i < draws.length; i++) {
