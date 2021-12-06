@@ -1,12 +1,8 @@
-import {realData, testData} from "./day6data.js";
-let data = realData.split(',').map(Number)
-let days = 256
 console.log('day6')
-// part one and two
+import {realData, testData} from "./day6data.js";
+let days = 256
 let swarm = Array(9).fill(0), swarmCopy = []
-
-// fill first fish school
-data.forEach( fish => swarm[fish]++)
+realData.split(',').forEach(fish => swarm[fish]++)
 
 for (let i = 0; i < days; i++) {
     for (let j = 0; j < swarm.length-1; j++) {
