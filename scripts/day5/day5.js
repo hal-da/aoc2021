@@ -2,12 +2,14 @@
 console.log('day5a')
 import { testData, realData} from "./day5data.js";
 
-let data = realData.split('\n')
-let grid = createGrid(1000,1000)
+let data = testData.split('\n')
+let grid = createGrid(10,10)
 let allReadings = []
 
 getReadings()
 drawLines()
+
+console.table(grid)
 
 let crossings = countCrossings()
 console.log('crossings: ', crossings)
@@ -34,38 +36,38 @@ function drawLines(){
 // diagonal drawings
 function drawX2andY1areBigger(x1, y1, x2){
     for(;x1<=x2;x1++,y1--){
-        grid[x1][y1]++
+        grid[y1][x1]++
     }
 }
 
 function drawX2andY2areBigger(x1, y1, x2){
     for(;x1<=x2;x1++,y1++) {
-        grid[x1][y1]++
+        grid[y1][x1]++
     }
 }
 
 function drawX1andY2areBigger(x1, y1, x2){
     for(;x1>=x2;x1--,y1++) {
-        grid[x1][y1]++
+        grid[y1][x1]++
     }
 }
 
 function drawX1andY1bigger(x1, y1, x2){
     for(;x1>=x2;x1--, y1--) {
-        grid[x1][y1]++
+        grid[y1][x1]++
     }
 }
 
 // horizontal drawings
 function drawHorizontal(row, startCol, endCol){
     for (let i = startCol; i <= endCol ; i++) {
-        grid[i][row]++
+        grid[row][i]++
     }
 }
 function drawVertical(col, startRow, endRow){
 
     for (let i = startRow; i <= endRow; i++) {
-        grid[col][i]++
+        grid[i][col]++
     }
 }
 
