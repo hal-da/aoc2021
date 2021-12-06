@@ -16,6 +16,4 @@ for (let i = 0; i < days; i++) {
     swarmCopy[8] = swarm[0]
     swarm = [...swarmCopy]
 }
-let sum = 0
-swarm.forEach( x => sum += x)
-console.log(sum)
+console.log(swarm.reduce((a,b)=> a+b))
