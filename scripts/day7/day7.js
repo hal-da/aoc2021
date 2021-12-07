@@ -11,5 +11,4 @@ for (let i = 0; i < data[data.length-1]; i++) {
         answer[i] += diff
     }
 }
-let smallest = Math.min(...answer) // answer.sort((a,b)=>a-b)[0]
-console.log(smallest)
+console.log(Math.min(...answer))
