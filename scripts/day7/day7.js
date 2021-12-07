@@ -3,7 +3,6 @@ import {testData, realData} from "./day7data.js";
 let data = realData.split(',').map(Number)
 let answer = Array(data[data.length-1]).fill(0)
 let part2 = true
-
 for (let i = 0; i < data[data.length-1]; i++) {
     for (let j = 0; j < data.length; j++) {
         let diff =  Math.abs(data[j]-i)
