@@ -48,20 +48,20 @@ function getAlphabet(i){
                     alphabet[3]=s
                     alphabet[s]=3
                     break
-                    }
+                }
                 let x9 = 0
                 let x4 = 0
                 for (let j = 0; j < 5; j++) {
                     if(alphabet[9].includes(s[j])) x9++
                     if(alphabet[4].includes(s[j])) x4++
-                    }
+                }
                 if(x4===3 ^ x9===5) {
                     alphabet[5]=s
                     alphabet[s]=5
                     } else if (x4=== 2 ^ x9 === 4){
                     alphabet[2]=s
                     alphabet[s]=2
-                    }
+                }
                 break
             case 6:
                 if(!(s.includes(alphabet[1][0]) && s.includes(alphabet[1][1]))
@@ -69,14 +69,14 @@ function getAlphabet(i){
                     alphabet[6]=s
                     alphabet[s]=6
                     break
-                    }
+                }
                 if(s.includes(alphabet[4][0]) && s.includes(alphabet[4][1]) && s.includes(alphabet[4][2]) && s.includes(alphabet[4][3])){
                     alphabet[9]=s
                     alphabet[s]=9
-                    } else {
+                } else {
                     alphabet[0]=s
                     alphabet[s]=0
-                    }
+                }
                 break
         }
     })
