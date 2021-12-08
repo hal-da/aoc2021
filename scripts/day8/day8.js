@@ -1,6 +1,6 @@
 console.log('day8')
 import {realData, testData, testData2} from "./day8data.js";
-let data = testData2.split('\n')
+let data = realData.split('\n')
 let alphabet, allDigits = [], forDigits= [], sum = 0
 
 for (let i = 0; i < data.length; i++) {
@@ -13,10 +13,12 @@ for (let i = 0; i < data.length; i++) {
     })
     console.log(myNumString)
     console.log(alphabet)
-
+    sum += myNumString *1
     console.log('-------------------------------------------------------------------------')
 }
+console.log(sum)
 
+//NOT 1060214
 function getAlphabet(i){
     alphabet = {
         0:'aaaaaaaaaaaaa',
@@ -31,7 +33,7 @@ function getAlphabet(i){
         9:'aaaaaaaaaaaaa',
     }
     allDigits = data[i].split(' ').sort((a,b)=> a.length - b.length).map(x => x.split('').sort().join(''))
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 5; j++) {
         allDigits.forEach(s => {
             switch (s.length){
                 case 2 : alphabet[s]=1
@@ -53,12 +55,15 @@ function getAlphabet(i){
                         alphabet[6]=s
                     } else if ((s.includes(alphabet[3][0])&& s.includes(alphabet[3][1]) && s.includes(alphabet[3][2]) && s.includes(alphabet[3][3]) && s.includes(alphabet[3][4])) ||
                         (s.includes(alphabet[4][0]) &&  s.includes(alphabet[4][1]) &&  s.includes(alphabet[4][2]) &&  s.includes(alphabet[4][3]))){
-                        alphabet[s]=6
-                        alphabet[6]=s
+                        alphabet[s]=9
+                        alphabet[9]=s
                     } else if ((!s.includes(alphabet[3][0])&& s.includes(alphabet[3][1]) && s.includes(alphabet[3][2]) && s.includes(alphabet[3][3]) && s.includes(alphabet[3][4])) &&
                         !(s.includes(alphabet[4][0]) &&  s.includes(alphabet[4][1]) &&  s.includes(alphabet[4][2]) &&  s.includes(alphabet[4][3]))){
                         alphabet[0]=s
                         alphabet[s]=0
+                    } else {
+                        alphabet[s]=6
+                        alphabet[6]=s
                     }
                 } break
                 case 5: {
@@ -115,7 +120,7 @@ function part1(){
     console.log(sum)
 }
 
-console.log(data)
+// console.log(data)
 // let alphabet = {
 //     abcefg:0,
 //     cf:1,
