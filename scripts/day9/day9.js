@@ -1,7 +1,7 @@
 console.log('day9')
 import {realData, testData} from "./day9data.js";
 let data = realData.split('\n').map(x=> x.split(''))
-let dataWithFrame = [],point, above, under, left, right, sumArr = []
+let dataWithFrame = [],point, above, under, left, right, sumArr = [], lows = []
 createFrameForArrays()
 
 for (let i = 1; i < dataWithFrame.length-1; i++) {
@@ -14,6 +14,7 @@ for (let i = 1; i < dataWithFrame.length-1; i++) {
 
         if(above > point && under > point && left > point && right > point) {
             //part1:
+            lows.push(point)
             let sum = 1;
             dataWithFrame[i][j] = 0
             sum += checkNeighbours(i,j)
@@ -22,8 +23,9 @@ for (let i = 1; i < dataWithFrame.length-1; i++) {
     }
 }
 
+console.log('part1:', lows.reduce((a,b)=>(a+b))+lows.length)
 sumArr.sort((a,b)=> a-b).reverse()
-console.log(sumArr[0]*sumArr[1]*sumArr[2])
+console.log('part2:', sumArr[0]*sumArr[1]*sumArr[2])
 
 function createFrameForArrays(){
     dataWithFrame[0] = Array(data[0].length+2).fill(9)
@@ -32,7 +34,6 @@ function createFrameForArrays(){
     }
     dataWithFrame.push(Array(data[0].length+2).fill(9))
 }
-
 
 function checkNeighbours(x,y){
     let coordsI = [],coordsJ = [], sum = 0
@@ -79,5 +80,3 @@ function checkNeighbours(x,y){
     }
     return sum
 }
-
-// console.log('part1:', lows.reduce((a,b)=>(a+b))+lows.length)
