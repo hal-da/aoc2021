@@ -10,15 +10,13 @@ fold.forEach(f=> {
     else foldHorizontal(f[1])
 })
 console.log(sheet)
-// foldHorizontal(7)
-// foldVertical(655)
+
 countRauten()
 
 function createSheet(){
     print.forEach(dot=> {
         if(dot[0] > y) y = dot[0]
         if(dot[1] > x) x = dot[1]
-        // sheet[dot[0]][dot[1]] = '#'
     })
     for (let i = 0; i <= x; i++) {
         sheet[i] = []
@@ -27,33 +25,28 @@ function createSheet(){
         }
     }
     print.forEach(dot => {
-
         sheet[dot[1]][dot[0]] = '#'
-
     })
-
 }
 function foldHorizontal(y){
     for (let i = y; i < sheet.length; i++) {
         for (let j = 0; j < sheet[0].length; j++) {
-            if(i===y)sheet[y][j] = '-'
             if(sheet[i][j]==='#'){
                 let mirrorI = y-(i-y)
                 sheet[mirrorI][j] = '#'
             }
-            sheet[i][j] = ''
+            sheet[i][j] = ' '
         }
     }
 }
 function foldVertical(x){
     for (let i = 0; i < sheet.length; i++) {
         for (let j = x; j < sheet[0].length; j++) {
-            if(i===y)sheet[y][j] = '|'
             if(sheet[i][j]==='#'){
                 let mirrorJ = x-(j-x)
                 sheet[i][mirrorJ] = '#'
             }
-            sheet[i][j] = ''
+            sheet[i][j] = ' '
         }
     }
 }
