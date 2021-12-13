@@ -2,104 +2,89 @@ console.log('day12')
 import {d} from "./day12data.js"
 import {solutions} from "./day12data.js";
 let solution = solutions.testDataSmall
-let data = d.testDataBig.split('\n').map(x=>x.split('-').sort(x=>x[0]-x[1]))
+let data = d.testDataSmall.split('\n').map(x=>x.split('-').sort(x=>x[0]-x[1]))
 let nodes = {}
 let mySolution = []
+let visitedList = {}
 
-data.forEach(d => {
-    pushToNodes(d[0],d[1])
-    if(d[0] === d[0].toUpperCase()) pushToNodes(d[1],d[0])
-})
-// getRidOfMeat()
+createAdjacentList()
+createVisitedList()
+followList('start')
 
-// findAllSolutions('start')
-console.log(data)
-console.log(nodes)
-console.log(solution.split('\n').sort((x,y)=> x.length-y.length))
+console.log('visited list: ',visitedList)
+console.log('nodes:',nodes)
+console.log('mysoution:', mySolution, )
+console.log(solution  )
+function createAdjacentList(){
+    data.forEach(d => {
+        pushToNodes(d[0],d[1])
+        pushToNodes(d[1],d[0])
+        // if(d[0] === d[0].toUpperCase()) pushToNodes(d[1],d[0])
+    })
 
-
-function findAllSolutions(k){
-    console.log(k, ' k')
-        nodes[k].forEach(node => {
-            mySolution.push(node)
-            console.log(node, ' from findAllSolutions')
-        })
-}
-
-function getRidOfMeat(){
-    Object.values(nodes).forEach(node => {
-        for (let i = 0; i < node.length; i++) {
-            if(!nodes[node[i]] ) {
-                node.splice(i, 1)
-                i--
-            }
+    Object.keys(nodes).forEach(key => {
+        console.log(nodes[key].length)
+        // console.log(nodes[key])
+        // for (let i = 0; i < nodes[key].length; i++) {
+        //     if(nodes[key][i]==='start') {
+        //         console.log('should slice here',nodes[key][i] )
+        //         nodes[key].splice(i, 1)
+        //     }
+        // }
+        if(nodes[key].length===1 && nodes[key][0].toLowerCase()===nodes[key][0] ) {
+            let keyToDelete = key
+            Object.keys(nodes).forEach(key => {
+                for (let i = 0; i < nodes[key].length; i++) {
+                if(nodes[key][i]===keyToDelete) {
+                    console.log('should slice here', keyToDelete)
+                    nodes[key].splice(i, 1)
+                    }
+                }
+            })
+            delete nodes[key]
         }
     })
-    delete nodes.end
+    // delete nodes.end
 }
 
+function followList(start){
+    const stack = [start]
+    let oneWay = []
+    while (stack.length > 0){
+        const current = stack.pop()
+        oneWay.push(current)
+        for (let i = 0; i < nodes[current].length; i++) {
+
+        // }
+        // for(let neighbour of nodes[current]){
+
+            if(nodes[current][i]==='end') {
+                oneWay.push('end')
+                mySolution.push(oneWay)
+                oneWay=[]
+                // createVisitedList()
+            } else {
+                if(!visitedList[current][i]) {
+                    stack.push(nodes[current][i])
+                    // createVisitedList()
+                    visitedList[current][i] = true
+                }
+            }
+        }
+    }
+
+
+
+}
 
 
 function pushToNodes(k, v){
-    if(!nodes[k])  nodes[k] = [v]
-    else if(nodes[k]!=='start') nodes[k].push(v)
+        if(!nodes[k])  nodes[k] = [v]
+        else nodes[k].push(v)
 }
+function createVisitedList(){
+    Object.keys(nodes).forEach(node => {
+        visitedList[node]=Array(nodes[node].length).fill(false)
 
-
-function getRidOfEndpoints(){
-
-
-    console.log(nodes, ' nodes')
-    // for (let i = 0; i < data.length; i++) {
-    //     let kick = true
-    //
-    //     for (let j = 0; j < data.length; j++) {
-    //         if(data[i][j][1] === 'end' || data[i][j][0] === data[i][j][0].toUpperCase() ||  )
-    //     }
-    // }
-
-
-
-    // dataObjects.forEach(a => {
-    //     let v = Object.values(a)[0]
-    //     let kick = true
-    //     dataObjects.forEach(ob => {
-    //         console.log(ob[v])
-    //         // if(ob[v] && ob[v] === 'end' ) kick = false
-    //     })
-    //     // console.log(v, kick)
-    // })
-
-
-    //
-    // Object.keys(dataObjects).forEach(key =>{
-    //     // console.log(key)
-    //     // let tmpObj = dataObjects[key]
-    //     // console.log(tmpObj)
-    //     let v = Object.values(dataObjects[key])[0]
-    //     let kick = true
-    //     for (let i = 0; i < dataObjects.length; i++) {
-    //         if(v !== 'end' && dataObjects[i][v]) {
-    //             // console.log('got it', v)
-    //             kick = false
-    //             i=100
-    //         }
-    //         if(kick)console.log('did not find ', v)
-    //     }
-    //
-    //
-    //     // dataObjects.forEach(d => {
-    //     //     if(d[v]) {
-    //     //         console.log(d[v])
-    //     //
-    //     //
-    //     //     console.log(v, ' does not exist')
-    //     // })
-    //     // console.log(v)
-    //     // console.log(dataObjects[v], ' undefinded?')
-    //
-    // })
-    //
-    //
-
+    })
 }
