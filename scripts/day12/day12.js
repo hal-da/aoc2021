@@ -13,7 +13,7 @@ followList('start')
 
 console.log('visited list: ',visitedList)
 console.log('nodes:',nodes)
-console.log('mysoution:', mySolution, )
+console.log('mySolution:', mySolution, )
 console.log(solution  )
 function createAdjacentList(){
     data.forEach(d => {
@@ -22,28 +22,29 @@ function createAdjacentList(){
         // if(d[0] === d[0].toUpperCase()) pushToNodes(d[1],d[0])
     })
 
-    Object.keys(nodes).forEach(key => {
-        console.log(nodes[key].length)
-        // console.log(nodes[key])
-        // for (let i = 0; i < nodes[key].length; i++) {
-        //     if(nodes[key][i]==='start') {
-        //         console.log('should slice here',nodes[key][i] )
-        //         nodes[key].splice(i, 1)
-        //     }
-        // }
-        if(nodes[key].length===1 && nodes[key][0].toLowerCase()===nodes[key][0] ) {
-            let keyToDelete = key
-            Object.keys(nodes).forEach(key => {
-                for (let i = 0; i < nodes[key].length; i++) {
-                if(nodes[key][i]===keyToDelete) {
-                    console.log('should slice here', keyToDelete)
-                    nodes[key].splice(i, 1)
-                    }
-                }
-            })
-            delete nodes[key]
-        }
-    })
+    // Object.keys(nodes).forEach(k
+    // ey => {
+    //     console.log(nodes[key].length)
+    //     // console.log(nodes[key])
+    //     // for (let i = 0; i < nodes[key].length; i++) {
+    //     //     if(nodes[key][i]==='start') {
+    //     //         console.log('should slice here',nodes[key][i] )
+    //     //         nodes[key].splice(i, 1)
+    //     //     }
+    //     // }
+    //     if(nodes[key].length===1 && nodes[key][0].toLowerCase()===nodes[key][0] ) {
+    //         let keyToDelete = key
+    //         Object.keys(nodes).forEach(key => {
+    //             for (let i = 0; i < nodes[key].length; i++) {
+    //             if(nodes[key][i]===keyToDelete) {
+    //                 console.log('should slice here', keyToDelete)
+    //                 nodes[key].splice(i, 1)
+    //                 }
+    //             }
+    //         })
+    //         delete nodes[key]
+    //     }
+    // })
     // delete nodes.end
 }
 
@@ -72,9 +73,6 @@ function followList(start){
             }
         }
     }
-
-
-
 }
 
 
