@@ -2,6 +2,7 @@ console.log('day13')
 import {theData} from "./day13data.js";
 let print = theData.realData.print.split('\n').map(y=> y.split(',').map(Number))
 let fold = theData.realData.fold.split('\n').map(x => x.split(' ').pop().split('='))
+console.log(fold)
 let y = 0, x = 0, sheet = []
 createSheet()
 fold.forEach(f=> {
@@ -9,6 +10,7 @@ fold.forEach(f=> {
     else foldHorizontal(f[1])
 })
 console.log(sheet)
+
 countRauten()
 
 function createSheet(){
@@ -22,7 +24,6 @@ function createSheet(){
             sheet[i][j]=' '
         }
     }
-
     print.forEach(dot => {
         sheet[dot[1]][dot[0]] = '#'
     })
@@ -33,8 +34,8 @@ function foldHorizontal(y){
             if(sheet[i][j]==='#'){
                 let mirrorI = y-(i-y)
                 sheet[mirrorI][j] = '#'
-                sheet[i][j] = ''
             }
+            sheet[i][j] = ' '
         }
     }
 }
@@ -45,7 +46,7 @@ function foldVertical(x){
                 let mirrorJ = x-(j-x)
                 sheet[i][mirrorJ] = '#'
             }
-            sheet[i][j] = ''
+            sheet[i][j] = ' '
         }
     }
 }
