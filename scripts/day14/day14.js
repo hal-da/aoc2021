@@ -14,9 +14,9 @@ part2()
 
 
 function part2(){
-    for (let i = 0; i < steps; i++) {
-        letsInsert()
-    }
+    // for (let i = 0; i < steps; i++) {
+    //     letsInsert()
+    // }
 
     // for (let i = 0; i < steps; i++) {
     //     createDictPart2(polymer)

@@ -8,7 +8,7 @@ let myTempPolymer = [], dictionary = {}, myCount = {
 }
 let polymer = testData.polymer
 let insertions = testData.insertions.split('\n').map(x=> x.split(' -> ').join('').split(''))
-let steps = 20
+let steps = 1
 
 
 createDictPart2()
@@ -27,22 +27,32 @@ runInsertion(steps)
 function runInsertion(steps){
     for (let i = 0; i < steps; i++) {
         let tmpDict = {}
+        let toDelete = []
         insertions.forEach(insertion => {
-            if(dictionary[insertion[0]+''+insertion[1]]){
-                console.log(insertion)
-                myCount[insertion[2]]++
+           let left = insertion[0], right = insertion[1], middle = insertion[2]
+            let hastToBeInDict = left+right
+            if(dictionary[hastToBeInDict]){
+                let newLeftSpawn = left+middle, newRightSpawn = middle+right
 
-                if(!tmpDict[insertion[0]+''+insertion[2]]) tmpDict[insertion[0]+''+insertion[2]] = 1
+                if(!tmpDict[newLeftSpawn])  tmpDict[newLeftSpawn] = 1
+                if(!tmpDict[newRightSpawn]) tmpDict[newRightSpawn] = 1
 
-                if(!tmpDict[insertion[2]+''+insertion[1]]) tmpDict[insertion[2]+''+insertion[1]] = 1
 
-            } else {
-                // console.log('nop',insertion )
+                delete dictionary[hastToBeInDict]
+
+                if(newRightSpawn === 'HB') console.log(insertion, 'dict',JSON.parse(JSON.stringify(dictionary)), 'tmp',JSON.parse(JSON.stringify(tmpDict)), i)
+                if(newLeftSpawn === 'HB') console.log(insertion, 'dict',JSON.parse(JSON.stringify(dictionary)), 'tmp',JSON.parse(JSON.stringify(tmpDict)), i)
+
+                dictionary = JSON.parse(JSON.stringify(tmpDict))
             }
 
         })
-        dictionary = tmpDict
     }
+}
+
+function deleteOldCells(toDelete){
+    console.log('delet')
+    toDelete.forEach(cell => delete dictionary[cell])
 }
 
 // Object.keys(dictionary).forEach(k => {
@@ -71,8 +81,8 @@ function createDictPart2(){
 }
 function createTestDict(){
     let testDic = {}
-    // let test = 'NCNBCHB'
-    let test = 'NBCCNBBBCBHCB'
+    let test = 'NCNBCHB'
+    // let test = 'NBCCNBBBCBHCB'
     // let test = 'NBBBCNCCNBBNBNBBCHBHHBCHB'
     for (let i = 0; i < test.length-1; i++) {
         if(!testDic[test[i]+''+test[i+1]])testDic[test[i]+''+test[i+1]] = 1
