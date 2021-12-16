@@ -1,4 +1,5 @@
-import {realData, testData, x} from "./day15data.js";
+import {realData, testData, testDatax5} from "./day15data.js";
+
 class Cell{
     constructor(cost, i, j) {
         this.cost = cost
@@ -30,7 +31,8 @@ class Cell{
 }
 
 console.log('day15')
-let maze = realData.split('\n').map(x=> x.split('').map(Number))
+let testMazeX5 = testDatax5.split('\n').map(x=> x.split('').map(Number))
+let maze = testData.split('\n').map(x=> x.split('').map(Number))
 // let maze
 
 console.log(maze.length)
@@ -38,14 +40,29 @@ console.log(maze[maze.length-1].length)
 
 let cellMaze  = [], openSet = [], closedSet = [], path = []
 // createCellMaze()
-createMazeFromX()
+// createMazeFromX()
+createTestMaze()
 let start = cellMaze[0][0], target = cellMaze[cellMaze.length-1][cellMaze[0].length-1]
 let estimation = getTheH(start, target)
 
 console.log(start)
+let error = '', errorCount = 0
+
+for (let i = 0; i < testMazeX5.length; i++) {
+    for (let j = 0; j < testMazeX5[0].length; j++) {
+        // console.log(testMazeX5[i][j] === cellMaze[i][j])
+        if(testMazeX5[i][j] !== cellMaze[i][j]) {
+            error += i + '/' + j + ' - is ' + cellMaze[i][j] + ' but should be ' + testMazeX5[i][j] + ',  '
+            errorCount++
+        }
+    }
+}
+console.log(error)
+console.log(errorCount)
 
 
-walkTheWalk()
+
+// walkTheWalk()
 console.log(closedSet)
 
 function getTheH(neighbour, target) {
@@ -62,7 +79,7 @@ function walkTheWalk(){
     let steps = 0
     openSet.push(start)
     while (openSet.length > 0){
-        console.log('..')
+        // console.log('..')
         openSet.sort((x,y) => x.cost - y.cost)
         // console.log(openSet)
         let current = openSet.shift()
@@ -147,15 +164,33 @@ function createMazeFromX(){
                 maze[i%maze.length][j%maze.length]++
             }
             for (let j = 0; j < maze.length; j++) {
-                for (let k = 0; k <maze.length; k++) {
-                    maze[j][k] -= 4
-                    if (maze[j][k] <= 0 ) maze[j][k] += 9
-                }
+                    maze[i][j] -= 5
+                    if (maze[i][j] <= 0 ) maze[i][j] += 9
+
             }
         }
     cellMaze.forEach(row => {
         row.forEach(cell => cell.addNeighbours())
     })
     // }
+    console.log(cellMaze)
+}
+
+function createTestMaze(){
+    for (let i = 0; i < maze.length*5; i++) {
+        cellMaze[i] = []
+        for (let j = 0; j < maze.length*5; j++) {
+            // console.log(i, i%maze.length)
+            // console.log(j, j%maze.length)
+            cellMaze[i][j] = maze[i % maze.length][j % maze.length] > 9 ? maze[i % maze.length][j % maze.length] % 9 : maze[i % maze.length][j % maze.length]
+            maze[i%maze.length][j%maze.length]++
+        }
+        console.log('i',i)
+        for (let j = 0; j < maze.length-1; j++) {
+            maze[i][j] -= 5
+            if (maze[i][j] <= 0 ) maze[i][j] += 9
+
+        }
+    }
     console.log(cellMaze)
 }
