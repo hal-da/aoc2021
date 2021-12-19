@@ -1,4 +1,4 @@
-import {realData, testData, testDatax5} from "./day15data.js";
+import {testData, testDataX5, realData} from "./day15data.js";
 
 class Cell{
     constructor(cost, i, j) {
@@ -31,8 +31,10 @@ class Cell{
 }
 
 console.log('day15')
-let testMazeX5 = testDatax5.split('\n').map(x=> x.split('').map(Number))
-let maze = testData.split('\n').map(x=> x.split('').map(Number))
+let testMazeX5 = testDataX5.split('\n').map(x=> x.split('').map(Number))
+let maze = realData.split('\n').map(x=> x.split('').map(Number))
+let originalMaze = [...maze]
+console.log('originalMAze:', originalMaze)
 // let maze
 
 console.log(maze.length)
@@ -46,6 +48,9 @@ let start = cellMaze[0][0], target = cellMaze[cellMaze.length-1][cellMaze[0].len
 let estimation = getTheH(start, target)
 
 console.log(start)
+/*
+test
+
 let error = '', errorCount = 0
 
 for (let i = 0; i < testMazeX5.length; i++) {
@@ -58,11 +63,12 @@ for (let i = 0; i < testMazeX5.length; i++) {
     }
 }
 console.log(error)
-console.log(errorCount)
+console.log('errorcount',errorCount)
+*/
 
 
 
-// walkTheWalk()
+walkTheWalk()
 console.log(closedSet)
 
 function getTheH(neighbour, target) {
@@ -161,13 +167,13 @@ function createMazeFromX(){
                 // console.log(j, j%maze.length)
                 let toAdd = maze[i%maze.length][j%maze.length] > 9 ? maze[i%maze.length][j%maze.length]%9: maze[i%maze.length][j%maze.length]
                 cellMaze[i][j] =  new Cell(toAdd, i, j)
-                maze[i%maze.length][j%maze.length]++
+                // maze[i%maze.length][j%maze.length]++
             }
-            for (let j = 0; j < maze.length; j++) {
-                    maze[i][j] -= 5
-                    if (maze[i][j] <= 0 ) maze[i][j] += 9
-
-            }
+            // for (let j = 0; j < maze.length; j++) {
+            //         maze[i][j] -= 5
+            //         if (maze[i][j] <= 0 ) maze[i][j] += 9
+            //
+            // }
         }
     cellMaze.forEach(row => {
         row.forEach(cell => cell.addNeighbours())
@@ -177,20 +183,22 @@ function createMazeFromX(){
 }
 
 function createTestMaze(){
+    let offsetI = 0, offsetJ = 0
+
     for (let i = 0; i < maze.length*5; i++) {
         cellMaze[i] = []
+        if(i>0 && i % maze.length === 0) offsetI++
         for (let j = 0; j < maze.length*5; j++) {
-            // console.log(i, i%maze.length)
-            // console.log(j, j%maze.length)
-            cellMaze[i][j] = maze[i % maze.length][j % maze.length] > 9 ? maze[i % maze.length][j % maze.length] % 9 : maze[i % maze.length][j % maze.length]
-            maze[i%maze.length][j%maze.length]++
+            maze = [...originalMaze]
+            if(j === 0)offsetJ = offsetI
+            if(j > 0 && j%maze.length===0)offsetJ++
+            let toAdd = maze[i % maze.length][j % maze.length] + offsetJ
+            toAdd = toAdd > 9 ? toAdd%9 : toAdd
+            cellMaze[i][j] = new Cell(toAdd, i, j)// maze[i % maze.length][j % maze.length] > 9 ? maze[i % maze.length][j % maze.length] % 9 : maze[i % maze.length][j % maze.length]
         }
-        console.log('i',i)
-        for (let j = 0; j < maze.length-1; j++) {
-            maze[i][j] -= 5
-            if (maze[i][j] <= 0 ) maze[i][j] += 9
-
-        }
+        cellMaze.forEach(row => {
+            row.forEach(cell => cell.addNeighbours())
+        })
     }
-    console.log(cellMaze)
+    console.log('cellMaze',cellMaze)
 }
